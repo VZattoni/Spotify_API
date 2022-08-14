@@ -33,7 +33,7 @@ class Spotify(object):
         r1 = requests.get(r.url)
 
         print(r.url)
-        #webbrowser.open(f"{r.url}")
+        webbrowser.open(f"{r.url}")
         print("\n")
         refresh_link = input("Please login and paste the URL here: ")
         print("\n")
