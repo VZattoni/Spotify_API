@@ -73,16 +73,22 @@ class Spotify(object):
         
         access_token = self.get_access_token()
         type_q = "tracks" #could be tracks or artists
-        request_link = "https://api.spotify.com/v1/me/top/{}".format(type_q)
+        request_link = "https://api.spotify.com/v1/me/top/{}?".format(type_q)
 
         query = {
-            "limit": 20, #The maximum number of itens to return. Min = 1, Max = 50.
+            "limit": 50, #The maximum number of itens to return. Min = 1, Max = 50.
             "offset": 0, #The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
             "time_range": "short_term" #Over what time frame the affinities are computed. 
                                         #Valid values: long_term (calculated from several years of data and including all new data as it becomes available), 
-                                        # medium_term (approximately last 6 months), short_term (approximately last 4 weeks). 
+                                        # medium_term (approximately last 6 months), short_term (approximately last month), long_term(all time). 
                                         # Default: medium_term 
         }
+
+        # data = urlparse.urlencode({"response_type": "code", "client_id": client_id, "scope": scope, "redirect_uri": redirect_uri, "state": state})
+
+        query_encode = urlparse.urlencode({"limit": 50, "offset": "0", "time_range": "long_term"})
+
+        request_link = request_link + query_encode
 
         header = {
             "Authorization": f"Bearer {access_token}",
